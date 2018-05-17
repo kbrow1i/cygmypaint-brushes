@@ -1,0 +1,26 @@
+NAME="mypaint-brushes"
+VERSION=1.3.0
+RELEASE=1
+SUMMARY="Brushes to be used with the MyPaint library"
+DESCRIPTION="This package contains brush files for use with MyPaint and other programs."
+CATEGORY="Graphics"
+HOMEPAGE="https://github.com/Jehan/mypaint-brushes"
+SRC_URI="https://github.com/Jehan/mypaint-brushes/archive/v${VERSION}.tar.gz#/${NAME}-${VERSION}.tar.gz"
+
+MYPAINT_DATA_VERSION=1.0
+PKG_NAMES="mypaint-brushes mypaint-brushes-devel"
+mypaint_brushes_CONTENTS="usr/share/doc/${NAME}/ usr/share/mypaint-data/${MYPAINT_DATA_VERSION}/"
+mypaint_brushes_devel_SUMMARY="${SUMMARY} (development)"
+mypaint_brushes_devel_CONTENTS="usr/share/pkgconfig/${NAME}-${MYPAINT_DATA_VERSION}.pc"
+
+DIFF_EXCLUDES="Makefile.in aclocal.m4 configure install-sh missing"
+
+src_compile() {
+    cd ${S}
+    ./autogen.sh
+    cd ${B}
+    cygconf
+    cygmake
+}
+
+ARCH=noarch
